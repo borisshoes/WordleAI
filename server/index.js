@@ -1,8 +1,9 @@
 import express from 'express';
+import 'dotenv/config';
 
 // Create the Express app and set the port number.
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
