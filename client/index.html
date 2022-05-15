@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Wordle Solver</title>
+
+    <script type="module" src="index.js" defer></script>
+    <link rel="stylesheet" href="index.css" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body style="background-color:black;">
+    <div class="container">
+        <center>
+            <h1>Wordle Algorithm!</h1>
+            <form>
+                <label for="word">Word: </label>
+                <input type="text" id="word" />
+
+                <input type="button" id="playButton" value="Play!" />
+                <input type="button" id="copyButton" value="Copy" />
+                <input type="button" id="hideButton" value="Toggle Letters" />
+                <br>
+                <br>
+                <input type="button" id="logButton" value="Show Log" />
+                <input type="button" id="distributionButton" value="Score Distribution" />
+                <input type="button" id="modeButton" value="Interactive Mode" />
+                <input type="button" id="settingsButton" value="Show Settings" />
+                
+                <div id="settings-container" style="display: none;">
+                    <br>
+                    <label for="starter">Starter: </label>
+                    <input type="text" id="starter" />
+                    <label for="hardMode"> Hard Mode</label>
+                    <input type="checkbox" id="hardMode" value="Hard Mode">
+                </div>
+                <div id="interactive-container" style="display: none;">
+                    <br>
+                    <label for="guess">Guess: </label>
+                    <input type="text" id="guess" disabled/>
+                    <input type="button" id="guessButton" value="Guess!" disabled/>
+                    <input type="button" id="undoButton" value="Undo" disabled/>
+                </div>
+            </form>
+            <br>
+            <div id="board">
+                <!-- Grid Elements inserted here -->
+            </div>
+
+            <br>
+            <br>
+            <textarea id="log" name="log" rows="15" cols="60" style="display: none; font-size: 25pt;" disabled></textarea>
+
+        </center>
+    </div>
+
+</body>
+
+</html>

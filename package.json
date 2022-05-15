@@ -1,0 +1,27 @@
+{
+  "name": "wordleai",
+  "version": "1.0.0",
+  "description": "Just a simple wordle bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "deploy": "copyfiles client/* server/* .env package*.json deploy",
+    "start": "node server/index.js",
+    "debug": "node --inspect-brk index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borisshoes/WordleAI.git"
+  },
+  "author": "BorisShoes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/borisshoes/WordleAI/issues"
+  },
+  "homepage": "https://github.com/borisshoes/WordleAI#readme",
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "express": "^4.18.1",
+    "node": "^17.7.2"
+  }
+}
