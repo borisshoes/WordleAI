@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Wordle Solver</title>
+
+    <link rel="stylesheet" href="index.css" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body style="background-color:black;">
+    
+    <div class="container">
+        <center>
+            <h1>Instructions</h1>
+
+            <div class="instructions"> 
+                <p>Below the line is a copy of the controls for the main page (they dont do anything here).</p>
+                <br>
+                <p><b>The page loads in Solver Mode, where all you do is put in a word for it to solve, and hit play!</b></p>
+                <p>Once a word is solved you can use the Copy button to copy the results to your clipboard</p>
+                <p>You can also use the Toggle Letters button to hide the letters in the grid, only showing colors</p>
+                <br>
+                <p><b>The Show/Hide Log button is where the algorithm dispenses its analysis of the word and possible guesses. It shows up below the playing grid.</b></p>
+                <p><b>The Show/Hide Settings button will allow you to change the algorithm's start word and toggle Hard Mode rules!</b></p>
+                <br>
+                <p><b>You can have the AI analyze your guesses with Interactive Mode!</b></p>
+                <p>When interactive mode is enabled and you press Play!, the starting guess will be entered and then you get to play.</p>
+                <p>After each guess the AI will show how many possibilities remain in the log.</p>
+                <p>You can undo a guess and try a different word to see how good different guesses are.</p>
+                <br>
+                <p>The Score Distribution button runs an analysis of all Wordle games with the given starting word and dispenses the results in the log.</p>
+                <p>Warning: Running the Score Distribution will take upwards of 30 minutes when not using Hard Mode rules!</p>
+
+                <br>
+                <p>Thats all the instructions, have fun!</p>
+                <a href="/">
+                    <input type="button" id="tutorialButton" value="Return to Homepage"/>
+                </a>
+            </div>
+            
+            <br><hr><br>
+            <form>
+                <label>Word: </label>
+                <input type="text" />
+
+                <input type="button" value="Play!" />
+                <input type="button" value="Copy" />
+                <input type="button" value="Toggle Letters" />
+                <br>
+                <br>
+                <input type="button" value="Show Log" />
+                <input type="button" value="Score Distribution" />
+                <input type="button" value="Solver Mode" />
+                <input type="button" value="Hide Settings" />
+                
+                <div id="settings-container" style="display: block;">
+                    <br>
+                    <label>Starter: </label>
+                    <input type="text"/>
+                    <label> Hard Mode</label>
+                    <input type="checkbox" value="Hard Mode">
+                </div>
+                <div id="interactive-container" style="display: block;">
+                    <br>
+                    <label for="guess">Guess: </label>
+                    <input type="text" disabled/>
+                    <input type="button" value="Guess!" disabled/>
+                    <input type="button" value="Undo" disabled/>
+                </div>
+                <br>
+
+                
+            </form>
+        </center>
+    </div>
+
+</body>
+
+</html>

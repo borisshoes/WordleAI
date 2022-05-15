@@ -13,6 +13,11 @@
     font-size: 18px
 }
 
+.tutorial-container{
+    display: flex; 
+    justify-content: flex-end
+}
+
 #log{
     background-color: rgb(65, 65, 65);
     color: white;

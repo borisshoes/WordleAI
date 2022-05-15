@@ -437,6 +437,7 @@ const interactiveContainer = document.getElementById("interactive-container");
 const guessInput = document.getElementById("guess");
 const guessButton = document.getElementById("guessButton");
 const undoButton = document.getElementById("undoButton");
+const tutorialButton = document.getElementById("tutorialButton");
 
 let starter = "dwarf";
 starterInput.value = starter;
@@ -742,8 +743,6 @@ function rerender() {
     g.render(document.getElementById('board'));
     g.renderLog(document.getElementById('log'));
 }
-
-
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
