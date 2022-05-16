@@ -187,7 +187,7 @@ export class Game {
     }
 
     isValidHardModeGuess(word){
-        const possibleAnswers = this.getPossibileAnswers(answerWords, this._guessedWords, this._solution, this._goodLetters, this._badLetters);
+        const possibleAnswers = this.getPossibileAnswers(answerWords.concat(words), this._guessedWords, this._solution, this._goodLetters, this._badLetters);
         return possibleAnswers.includes(word);
     }
 
