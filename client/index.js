@@ -3,7 +3,7 @@ import { words } from '/words.js';
 
 export class Game {
 
-    constructor(hardMode) {
+    constructor(hardMode, hideGoal) {
         this._grid = new Array(5).fill(' ').map(() => new Array(6).fill(' ')); // Set and initialize gameboard
         this._specials = new Array(5).fill(' ').map(() => new Array(6).fill(' ')); // Set and initialize special tiles
         this._goalWord = "";
@@ -16,6 +16,7 @@ export class Game {
         this._log = [];
         this._copyString = "";
         this._startString = "";
+        this._hideGoal = hideGoal;
         this._solved = false;
         this._hardMode = hardMode;
         for (let i = 0; i < 5; i++) {
@@ -35,7 +36,11 @@ export class Game {
             return false;
         }
         this._goalWord = word;
-        this._startString = !this._hardMode ? `=========== Starting new game with goal: ${word} ===========` : `====== Starting new game with goal: ${word} (Hard Mode) ======`;
+        const template = '$ Starting new game &%$'
+        const hidden = this._hideGoal ? `` : `with goal: ${word} `;
+        const mode = this._hardMode ? `(Hard Mode) ` : ``;
+        const border = `=====`;
+        this._startString = template.replace('&',hidden).replace('%', mode).replace('$',border).replace('$',border);
         return true;
     }
 
@@ -438,16 +443,19 @@ const guessInput = document.getElementById("guess");
 const guessButton = document.getElementById("guessButton");
 const undoButton = document.getElementById("undoButton");
 const tutorialButton = document.getElementById("tutorialButton");
+const randomButton = document.getElementById("randomButton");
 
 let starter = "dwarf";
 starterInput.value = starter;
 let hardMode = false;
 let interactiveMode = false;
+let hidden = false;
 
-let g = new Game(hardMode);
+let g = new Game(hardMode,hidden);
 rerender();
 
-playButton.addEventListener("click", playWordle);
+playButton.addEventListener("click", () => {hidden = false; playWordle(word.value.toLowerCase());});
+randomButton.addEventListener("click",() => {hidden = interactiveMode; playWordle(answerWords[Math.floor(Math.random()*answerWords.length)]);});
 distributionButton.addEventListener("click", getScoreDistribution);
 hideButton.addEventListener("click", hideLetters);
 logButton.addEventListener("click", hideLog);
@@ -459,9 +467,8 @@ undoButton.addEventListener("click", interactiveUndo);
 hardModeBox.addEventListener('change', function () { hardMode = this.checked })
 
 let interactiveGameActive = false;
-function playWordle() {
+function playWordle(goal) {
     if (interactiveMode) {
-        const goal = word.value.toLowerCase();
         starter = starterInput.value;
         if (starter.length !== 5) {
             alert(`Start word '${starter}' is not 5 letters`);
@@ -472,11 +479,11 @@ function playWordle() {
             return -1;
         }
 
-        g = new Game(hardMode);
+        g = new Game(hardMode,hidden);
         interactiveGameActive = true;
         if (g.setGoalWord(goal)) {
             g.addWord(starter);
-            g.logRemainingWords();
+            g.getNextGuess();
         }
         rerender();
 
@@ -484,7 +491,7 @@ function playWordle() {
         guessButton.removeAttribute('disabled');
         undoButton.removeAttribute('disabled');
     } else {
-        solveWordle(word.value.toLowerCase(), true);
+        solveWordle(goal, true);
     }
 }
 
@@ -506,7 +513,7 @@ function interactiveUndo(){
     guessed.pop();
     const goal = g._goalWord;
     const hard = g._hardMode;
-    g = new Game(hard);
+    g = new Game(hard,hidden);
     g.setGoalWord(goal);
 
     for(let i = 0; i < guessed.length; i++){
@@ -548,7 +555,8 @@ function interactiveGuess() {
     }
 
     g.addWord(guessWord);
-    g.logRemainingWords();
+    g.getNextGuess();
+
     rerender();
     if(g._solved){
         interactiveGameActive = false;
@@ -635,7 +643,7 @@ function solveWordle(goal, render) {
         return -1;
     }
 
-    g = new Game(hardMode);
+    g = new Game(hardMode,hidden);
     interactiveGameActive = false;
     guessInput.setAttribute('disabled', '');
     guessButton.setAttribute('disabled', '');
